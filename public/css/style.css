@@ -9,8 +9,8 @@
 }
 
 .shelf-book {
-    height: 300px;
-    width: auto;
+    min-height: 100%;
+    width:auto;
     display: block;
     margin: 0 auto;
     object-fit: cover;
@@ -19,7 +19,8 @@
 
 .post-cover {
     height: 300px;
-    width: auto;
+    width:auto;
+    max-width: inherit;
     display: block;
     margin: 0 auto;
     object-fit: cover;
@@ -37,6 +38,7 @@ img{
     object-fit: contain;
     margin:auto;
     width:100%;
+    aspect-ratio: 2/3;
 }
 
 
@@ -49,13 +51,25 @@ img{
 }
 
 .footer {
+    position:relative;
     bottom:0;
-    position:fixed;
+    width: 100%;
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  position: relative;
+  margin-top: auto;
+}
+
+.content {
+    justify-content: center;
+    vertical-align: top;
+}
+
+form {
+    margin: 0;
 }

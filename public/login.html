@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="css/style.css">
+    
+        <title>Book Tracker</title>
+    </head>
+
+    <body>
+        
+        <div class="container-fluid" style="padding-right: 0px; padding-left: 0px; min-height: 100dvh;">
+            <nav class="navbar navbar-expand-lg blueBG" data-bs-theme="light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html"><i class="bi bi-book"></i> <b>Book Tracker</b></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                            aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="shelf.html">Shelf</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posts.html">Posts</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="login.html">Account</a></li>
+                    </ul>
+                    <form class="d-flex" role="search" style="margin-bottom: 0px;">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                    </div>
+                </div>  
+            </nav>
+            <br>
+            <div class="container col-sm-12 col-md-10 content">
+                <div class="card col-12 ">
+                    <div class="card-header blueBG center">
+                        <b>Log In</b>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="loginUser">
+                                <br>
+                                <label for="username" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPass">
+                                <p id="loginError"></p>
+                            </div>
+
+                            <button type="button" class="btn btn-info" id="loginSubmitBtn">Submit</button>
+                        </form>
+                    </div>
+                    
+                </div>
+                <br>
+                <div class="card col-12">
+                    <div class="card-header center blueBG">
+                        <b>Create Account</b>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="createUser" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="createUser">
+                                <br>
+                                <label for="createUserEmail" class="form-label">Email Address</label>
+                                <input type="text" class="form-control" id="createUser">
+                                <br>
+                                <label for="createPass" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="createPass">
+                                <br>
+                                <label for="verifyPass" class="form-label">Re-Enter Password</label>
+                                <input type="password" class="form-control" id="verifyPass">
+                                <p id="loginError"></p>
+                            </div>
+                            <button type="button" class="btn btn-info" id="emailSubmitBtn">Submit</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            <br>
+        
+            <div class="blueBG footer">
+                <div class="container">
+                    <footer class="row">
+                        <ul class="nav justify-content-center py-3">
+                            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+                            <li class="nav-item"><a href="shelf.html" class="nav-link px-2 text-body-secondary">Shelf</a></li>
+                            <li class="nav-item"><a href="posts.html" class="nav-link px-2 text-body-secondary">Posts</a></li>
+                            <li class="nav-item"><a href="posts.html" class="nav-link px-2 text-body-secondary">Account</a></li>
+                        </ul>
+                        <hr>
+                        <p class="text-center text-body-secondary">© 2025 Project Group 7</p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+            
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        
+    </body>
+</html>

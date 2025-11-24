@@ -73,3 +73,18 @@ body {
 form {
     margin: 0;
 }
+
+.errMessage {
+    color:crimson;
+}
+
+.search-img {
+    height:250px;
+    width:fit-content;
+}
+
+.search-btn {
+    position:absolute;
+    bottom:20;
+    right:20;
+}

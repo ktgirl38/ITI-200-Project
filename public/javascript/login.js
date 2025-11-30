@@ -80,6 +80,11 @@ async function loginAccount(event) {
         return false;
     }
 
+    if(response.ok) { // 200 OK
+        window.user = user.username;
+        alert("Login successful!"); 
+    }
+
     window.user=user.username;
 
     

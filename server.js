@@ -152,6 +152,87 @@ app.get("/api/home/getYearReads", (req, res) => {
 
 });
 
+app.post("/api/home/editBookProgress", (req, res) => {
+    console.log("Server accessed");
+    const progress = req.body;
+    
+
+    const data = [progress.username, progress.book, progress.currentPage, progress.totalPages, progress.readingStatus];
+        
+    const sql = "UPDATE ReadingStats SET currentPage=$3, pageNum=$4, readingStatus=$5 WHERE username=$1 AND book=$2";
+    
+    
+
+    pool.query(sql, data, (error, results) => {
+        if(error) {
+            throw error;
+        } 
+        return res.status(200).json("Updated Successfully");
+    })
+
+    
+    
+});
+
+app.get("/api/home/getYearReads", (req, res) => {
+    console.log("Server Accessed");
+
+    const startDate = `${req.query.year}-01-01`;
+    const endDate = `${req.query.year}-12-31`;
+
+    const data = [req.query.username, startDate, endDate];
+    const sql= `SELECT * FROM ReadingStats WHERE username=$1 AND dateCompleted BETWEEN $2 AND $3`;
+    pool.query(sql, data, (error, results) => {
+        if(error) {throw error}
+        if(results.rows.length===0){
+            console.log("No books found");
+            return res.status(404).json({error: "No books found"});
+        }
+        console.log(results.rows);
+        return res.status(200).json(results.rows)
+    })
+
+});
+
+app.get("/api/discussions", async (req, res) => {
+  try {
+    const sql = `
+      SELECT d.book, d.author, b.cover
+      FROM Discussions d
+      JOIN Books b ON d.book = b.title AND d.author = b.author
+    `;
+    const results = await pool.query(sql);
+    res.status(200).json(results.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+app.get("/api/discussions/:book", async (req, res) => {
+  try {
+    const sql = "SELECT username, postComment FROM postComments WHERE discussion=$1";
+    const results = await pool.query(sql, [req.params.book]);
+    res.status(200).json(results.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+app.post("/api/comments", async (req, res) => {
+  try {
+    const { discussion, username, postComment } = req.body;
+    const sql =
+      "INSERT INTO postComments (discussion, username, postComment) VALUES ($1, $2, $3)";
+    await pool.query(sql, [discussion, username, postComment]);
+    res.status(200).json({ message: "Comment added" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to add comment" });
+  }
+});
+
 
 app.listen(80, () => {
     console.log("Listening on port 80");

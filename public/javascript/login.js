@@ -51,6 +51,8 @@ async function createAccount(event) {
         alert("The username you have chosen already exists, please choose another.");
         return false;
     }
+
+    alert("Account Created Successfully");
 }
 
 async function loginAccount(event) {
@@ -59,10 +61,13 @@ async function loginAccount(event) {
     const LIUsername = document.getElementById("loginUser");
     const LIPassword = document.getElementById("loginPass");
 
+
     const user = {
         username: LIUsername.value,
         password: LIPassword.value
     }
+
+    localStorage.setItem('username', user.username);
 
 
     const response = await fetch("/api/user/check", {
@@ -72,16 +77,21 @@ async function loginAccount(event) {
         },
         method: 'POST',
         body: JSON.stringify(user)
-    })
+    });
+
+    console.log(localStorage.getItem('username'))
+    
 
     if(response.status===404) {
         loginError.innerText = "This combination does not exist.";
         alert("This combination does not exist");
+        localStorage.removeItem('username');
         return false;
-    }
+    } 
 
-    window.user=user.username;
+    alert("Login Successful! Welcome " + user.username);
 
+    
     
 }
 

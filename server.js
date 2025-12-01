@@ -107,15 +107,18 @@ app.get("/api/getBookInfo", (req, res) =>{
     })
 })
 
+// Example
 app.get("/api/books", async (req, res) => {
-    const query = "SELECT title, author, cover, ISBN, publishingDate FROM Books";
     try {
-        const books = await db.all(query);
-        res.json(books);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const sql = "SELECT * FROM Books";
+        const result = await pool.query(sql);
+        res.json(result.rows); // <-- must be an array
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error fetching books" });
     }
 });
+
 
 app.get("/api/books/details", async (req, res) => {
     const { title, author } = req.query;

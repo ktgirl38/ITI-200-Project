@@ -2,6 +2,7 @@ const express = require("express");
 const http=require("http");
 const Pool = require('pg').Pool
 const bodyParser = require("body-parser");
+require('dotenv').config();
 
 const app = express();
 
@@ -9,11 +10,7 @@ app.use(express.static('public'))
 app.use(bodyParser.json());
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'ProjectDatabase',
-    password: 'postgres',
-    port: 5432,
+  connectionString: process.env.CONN_STR,
 });
 
 app.post("/api/user/check", (req, res) => {
@@ -110,27 +107,103 @@ app.get("/api/getBookInfo", (req, res) =>{
     })
 })
 
+// Example
+app.get("/api/books", async (req, res) => {
+    try {
+        const sql = "SELECT * FROM Books";
+        const result = await pool.query(sql);
+        res.json(result.rows); // <-- must be an array
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error fetching books" });
+    }
+});
+
+// ✔ NEW: FETCH A SINGLE BOOK BY TITLE + AUTHOR
+app.get("/api/book", async (req, res) => {
+    const { title, author } = req.query;
+
+    if (!title || !author) {
+        return res.status(400).json({ error: "Missing title or author" });
+    }
+
+    try {
+        const sql = "SELECT * FROM Books WHERE title=$1 AND author=$2";
+        const result = await pool.query(sql, [title, author]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Book not found" });
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server error fetching book" });
+    }
+});
+
+
+app.get("/api/books/all", (req, res) => {
+    pool.query("SELECT * FROM Books", (err, results) => {
+        if (err) throw err;
+        res.json(results.rows);
+    });
+});
+
+app.get("/api/home/getYearReads", (req, res) => {
+    console.log("Server Accessed");
+
+    const startDate = `${req.query.year}-01-01`;
+    const endDate = `${req.query.year}-12-31`;
+
+    const data = [req.query.username, startDate, endDate];
+    const sql= `SELECT * FROM ReadingStats WHERE username=$1 AND dateCompleted BETWEEN $2 AND $3`;
+    pool.query(sql, data, (error, results) => {
+        if(error) {throw error}
+        if(results.rows.length===0){
+            console.log("No books found");
+            return res.status(404).json({error: "No books found"});
+        }
+        console.log(results.rows);
+        return res.status(200).json(results.rows)
+    })
+
+});
+
 app.post("/api/home/editBookProgress", (req, res) => {
     console.log("Server accessed");
     const progress = req.body;
-    
 
-    const data = [progress.username, progress.book, progress.currentPage, progress.totalPages, progress.readingStatus];
-        
-    const sql = "UPDATE ReadingStats SET currentPage=$3, pageNum=$4, readingStatus=$5 WHERE username=$1 AND book=$2";
-    
-    
+    const data = [
+        progress.username,
+        progress.book,
+        progress.author,
+        progress.currentPage,
+        progress.totalPages,
+        progress.readingStatus,
+        progress.cover
+    ];
+
+    const sql = `
+        INSERT INTO ReadingStats (username, book, author, dateStarted, currentPage, pageNum, readingStatus, cover)
+        VALUES ($1, $2, $3, NOW(), $4, $5, $6, $7)
+        ON CONFLICT (username, book, dateStarted)
+        DO UPDATE SET
+            currentPage = EXCLUDED.currentPage,
+            pageNum = EXCLUDED.pageNum,
+            readingStatus = EXCLUDED.readingStatus,
+            cover = EXCLUDED.cover;
+    `;
 
     pool.query(sql, data, (error, results) => {
-        if(error) {
-            throw error;
-        } 
-        return res.status(200).json("Updated Successfully");
-    })
-
-    
-    
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ error: "Database error" });
+        }
+        return res.status(200).json("Saved Successfully");
+    });
 });
+
 
 app.get("/api/home/getYearReads", (req, res) => {
     console.log("Server Accessed");
@@ -191,20 +264,6 @@ app.post("/api/comments", async (req, res) => {
   }
 });
 
-app.get("/api/getBooks", (req, res) => {
-    console.log("Server Accessed");
-    const sql= `SELECT * FROM Books`;
-    pool.query(sql, (error, results) => {
-        if(error) {throw error}
-        if(results.rows.length===0){
-            console.log("No books found");
-            return res.status(404).json({error: "No books found"});
-        }
-        console.log(results.rows);
-        return res.status(200).json(results.rows)
-    })
-
-});
 
 app.listen(80, () => {
     console.log("Listening on port 80");

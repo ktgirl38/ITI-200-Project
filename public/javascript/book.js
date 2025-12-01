@@ -2,6 +2,8 @@
 // GET USER
 // ---------------------------
 const username = localStorage.getItem("username");
+const bookAuthorParam = params.get("author");
+
 if (!username) {
     alert("Please log in to track your books.");
     window.location.href = "login.html";
@@ -32,7 +34,7 @@ const discussionLink = document.getElementById("discussionLink");
 // LOAD BOOK DETAILS FROM SERVER
 // ---------------------------
 async function loadBook() {
-    const url = `/api/books/details?title=${encodeURIComponent(bookTitle)}&author=${encodeURIComponent(bookAuthor)}&username=${encodeURIComponent(username)}`;
+    const url = `/api/book?title=${encodeURIComponent(bookTitle)}&author=${encodeURIComponent(bookAuthorParam)}`;
 
     const response = await fetch(url);
     if (!response.ok) {

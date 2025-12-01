@@ -119,12 +119,17 @@ app.get("/api/books", async (req, res) => {
     }
 });
 
-app.get("/api/books/*", async (req, res) => {
-    const title = decodeURIComponent(req.params[0]); 
+// ✔ NEW: FETCH A SINGLE BOOK BY TITLE + AUTHOR
+app.get("/api/book", async (req, res) => {
+    const { title, author } = req.query;
+
+    if (!title || !author) {
+        return res.status(400).json({ error: "Missing title or author" });
+    }
 
     try {
-        const sql = "SELECT * FROM Books WHERE title=$1";
-        const result = await pool.query(sql, [title]);
+        const sql = "SELECT * FROM Books WHERE title=$1 AND author=$2";
+        const result = await pool.query(sql, [title, author]);
 
         if (result.rows.length === 0) {
             return res.status(404).json({ error: "Book not found" });

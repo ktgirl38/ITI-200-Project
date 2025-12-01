@@ -1,0 +1,251 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="css/style.css">
+    
+        <title>Book Tracker</title>
+    </head>
+    <body>
+        
+        <div class="container-fluid" style="padding-right: 0px; padding-left: 0px; min-height: 100dvh;">
+            <nav class="navbar navbar-expand-lg blueBG" data-bs-theme="light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html"><i class="bi bi-book"></i> <b>Book Tracker</b></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                            aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="shelf.html">Shelf</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posts.html">Posts</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login.html">Account</a></li>
+                        <li class="nav-item"><a class="nav-link" href="library.html">Library</a></li>
+                    </ul>
+                    <form class="d-flex" role="search" style="margin-bottom: 0px;" id="navbarSearch">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="navSearch"/>
+                        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                    </div>
+                </div>  
+            </nav>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card xl-3" id="currentlyReading">
+                            <div class="card-header center blueBG">
+                                <b>Currently Reading</b>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header center blueBG">
+                                <b>Reccomendations for you</b>
+                            </div>
+                            <div class="card-body">
+                                <div id="reccomendation-carousel" class="carousel slide">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active" >
+                                            <img src="images/PoppyWarCover.jpg" class="d-block">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="images/LessonsInChemistry.jpg" class="d-block w-100" >
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="images/TressOfTheEmeraldSea.jpg" class="d-block w-100">
+                                        </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#reccomendation-carousel" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true" style="color:#0dcaf0"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#reccomendation-carousel" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                            <div class="card mb-4" id="yearlyReadingStats">
+                                <div class="card-header center blueBG">
+                                    <b>Reading Stats</b>
+                                </div>
+                                
+                            </div>
+                    </div>
+                        
+
+                </div>
+            </div>
+            <br>
+            <div class="blueBG footer">
+                <div class="container">
+                    <footer class="row">
+                        <ul class="nav justify-content-center py-3">
+                            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+                            <li class="nav-item"><a href="shelf.html" class="nav-link px-2 text-body-secondary">Shelf</a></li>
+                            <li class="nav-item"><a href="posts.html" class="nav-link px-2 text-body-secondary">Posts</a></li>
+                            <li class="nav-item"><a href="account.html" class="nav-link px-2 text-body-secondary">Account</a></li>
+                        </ul>
+                        <hr>
+                        <p class="text-center text-body-secondary">© 2025 Project Group 7</p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        <script src="javascript/home.js"></script>
+        <script src="javascript/search.js"></script>
+        <script>
+
+            const user=localStorage.getItem('username');
+
+            function createCard(title, author, pageRead, totalPages, cover) {
+                const html = `
+                <div class="row g-0">
+                    <div class="col-xl-5">
+                        <img src="${cover}" class="img-fluid">
+                    </div>
+                    <div class="col-xl-7">
+                        <div class="card-body">
+                            <h5 class="card-title">${title}</h5>
+                            <h6>${author}</h6>
+                            <hr>
+                            <div class="progress mb-2" role="progressbar" aria-label="Example with label" aria-valuenow="${Math.round((pageRead/totalPages)*100)}" aria-valuemin="0" aria-valuemax="100" id="${title}ProgressBarLabel">
+                                <div class="progress-bar bg-info" style="width: ${Math.round((pageRead/totalPages)*100)}%" id="${title}ProgressBar">${Math.round((pageRead/totalPages)*100)}%</div>
+                            </div>
+                            <p class="card-text" id="${title}PagesRead">${pageRead}</p>
+                            <button type="button" class="btn btn-outline-info" id="${title}UpdateBtn">Update Progress</button>
+                        </div>
+                    </div>
+
+                    <div class="hidden card m-2" style="width:inherit" id="${title}UpdateForm">
+                                
+                                <div class="card-header blueBG center"><b>Update information for ${title}</b></div>
+                                <div class="card-body pl-1 pr-1 pt-2 pb-2">
+                                    <form>
+                                        <label for="pageRead${title}">Current Page Number</label>
+                                        <input type="number" class="form-control mb-2" id="pageRead${title}"  value=${pageRead}>
+                                        
+                                        <label for="totalPages${title}">Total Page Number</label>
+                                        <input type="number" class="form-control mb-2" id="totalPages${title}" value=${totalPages}>
+                                        
+                                        Reading Status <br>
+                                        <label for="status${title}TBR">To Be Read</label>
+                                        <input type="radio" class="form-check-inline mb-2" id="status${title}TBR" name="Status" value="To Be Read">
+                                        <label for="status${title}CR">Currently Reading</label>
+                                        <input type="radio" class="form-check-inline mb-2" id="status${title}CR" name="Status" checked value="Currently Reading">
+                                        <label for="status${title}Fin">Finished</label>
+                                        <input type="radio" class="form-check-inline mb-2" id="status${title}Fin" name="Status" value="Completed">
+                                        <br>
+                                        <input type="submit" class="btn btn-info mt-2" id="${title}UpdateSubmit">
+                                    </form>
+                                </div>
+                            </div>
+                </div>
+                `
+                
+                return html;
+            }
+
+            function readingStats(year, totalBooks, pages, goal) {
+                const html = `<div class="card-body">
+                            <h6 class="card-title" style="font-size: large;">
+                                ${year}
+                            </h6>
+                            <b>Reading Goal</b>: <span id="totalBooks">${totalBooks}</span> out of ${goal}
+                            <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="${Math.round((totalBooks/goal)*100)}" aria-valuemin="0" aria-valuemax="100" id="statsProgressLabel">
+                                <div class="progress-bar bg-info" style="width: ${Math.round((totalBooks/goal)*100)}%" id="statsProgressBar">${Math.round((totalBooks/goal)*100)}%</div>
+                            </div>
+                            <hr>
+                            <p><b>Total Pages Read</b>: <span id="pageTotal">${pages}</span> pages</p>
+                            <p><b>Average Book Length</b>: <span id="avgPages">${Math.round(pages/totalBooks)}</span> pages</p>
+                        </div> `
+                return html;
+                
+            }
+
+            async function updateYearStats(){
+                const stats=document.getElementById("yearlyReadingStats");
+                
+                if((!(user === null))) {
+
+                    
+
+                    const curYear = new Date().getFullYear();
+
+                    const request = await fetch(`/api/home/getYearReads?username=${encodeURIComponent(user)}&year=${curYear}`, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        method: 'GET',
+                    });
+
+                    const response = await request.json();
+
+                    if(request.status===404) {
+                        stats.innerHTML += `<div class="card-body"><h5>You have not read anything yet. Visit your shelf to choose your next read!</h5></div>`;
+                        return false;
+                    }
+
+                    let bookTotal=0;
+                    let pageTotal=0;
+                    for(let book of response) {
+                        bookTotal++;
+                        if(!(book.pagenum === null)){
+                            pageTotal+=parseInt(book.pagenum);
+                        }
+                        
+                    }
+
+                    stats.innerHTML+=readingStats(curYear, bookTotal, pageTotal, 15);
+                    
+                } else {
+                    stats.innerHTML+= `<div class="card-body"><h5>Sign in to view your current stats!</h5></div>`
+                }
+            }
+
+            async function loadCurrentReads(){
+
+
+                if(!(user === null)) {
+                    const request = await fetch(`/api/home/getReads?username=${encodeURIComponent(user)}&status=Currently Reading`, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        method: 'GET',
+                    });
+
+                    const response = await request.json();
+
+
+                    if(request.status===404) {
+                        curReads.innerHTML += `<div class="card-body"><h5>You are not reading anything right now. Visit your shelf to choose your next read!</h5></div>`;
+                        return false;
+                    }
+
+                    for(let book of response) {
+                        curReads.innerHTML+=createCard(book.book, book.author, book.currentpage, book.pagenum, book.cover)
+                    }
+                } else {
+                    curReads.innerHTML+= `<div class="card-body"><h5>Sign in to view your current reads!</h5></div>`
+                }
+            }
+
+            window.addEventListener("load", loadCurrentReads)
+            window.addEventListener("load", updateYearStats)
+        </script>
+    </body>
+</html>

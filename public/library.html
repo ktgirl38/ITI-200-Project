@@ -69,7 +69,7 @@
     <script>
         function createBook(cover, title){
             html=`<div class="col-md-2 col-6" id="${title}Shelf">
-                <a href="book.html?book=${title}">
+                <a href="book.html?book=${title}" id=${title}Library>
                     <img src="${cover}" class="img-fluid shelf-book" alt="${title}">
                 </a>
             </div>`
@@ -99,7 +99,7 @@
                 const books = await response.json()
 
                 for (let book of books){
-                    results.innerHTML += createResult(book.title, book.author, book.cover);
+                    results.innerHTML += createBook(book.title, book.cover);
                 }
             }
 

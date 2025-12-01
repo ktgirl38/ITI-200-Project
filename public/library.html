@@ -68,7 +68,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function createBook(cover, title){
-            html=`<div class="col-md-2 col-6">
+            html=`<div class="col-md-2 col-6" id="${title}Shelf">
                 <a href="book.html?book=${title}">
                     <img src="${cover}" class="img-fluid shelf-book" alt="${title}">
                 </a>
@@ -78,7 +78,7 @@
         async function loadBooks() {
             const results=document.getElementById("shelf");
 
-                const response = await fetch("/api/grtBooks", {
+                const response = await fetch("/api/getBooks", {
                     headers: {
                         'Accept':'application/json',
                         'Content-Type': 'application/json'

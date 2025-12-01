@@ -111,6 +111,42 @@
     </div>
 
 </div>
+<script>
+    function loadShelves() {
+        const containers = {
+            "Currently Reading": document.getElementById("currentlyReadingBooks"),
+            "Completed": document.getElementById("finishedBooks"),
+            "TBR": document.getElementById("planToReadBooks")
+        };
+
+        const allKeys = Object.keys(localStorage);
+
+        allKeys.forEach(key => {
+            const item = JSON.parse(localStorage.getItem(key));
+            if (!item || !item.shelf) return;
+
+            const img = document.createElement("img");
+            img.src = item.cover;
+            img.alt = item.title;
+            img.className = "img-fluid shelf-book";
+            img.style.cursor = "pointer";
+
+            // Click → return to book page
+            img.onclick = () => {
+                window.location.href = item.link;
+            };
+
+            const wrapper = document.createElement("div");
+            wrapper.className = "col-md-2 col-6";
+            wrapper.appendChild(img);
+
+            containers[item.shelf].appendChild(wrapper);
+        });
+    }
+
+    window.addEventListener("load", loadShelves);
+</script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

@@ -50,7 +50,7 @@
                 <p><b>Author:</b> Elliot Page</p>
                 <p><b>ISBN:</b> 9781250878359</p>
                 <p><b>Publisher:</b> Flatiron Books</p>
-                <p><b>Total Pages:</b> 400</p>
+                <p><b>Total Pages:</b> 288</p>
 
                 <hr>
 
@@ -96,30 +96,36 @@
     </div>
 
     <!-- SIMPLE JS FOR LOCALSTORAGE -->
-    <script>
-        const BOOK_KEY = "Pageboy";
+<script>
+    const BOOK_KEY = "Pageboy";
 
-        // Load saved info when page opens
-        window.addEventListener("load", () => {
-            const saved = JSON.parse(localStorage.getItem(BOOK_KEY));
+    window.addEventListener("load", () => {
+        const saved = JSON.parse(localStorage.getItem(BOOK_KEY));
 
-            if (saved) {
-                document.getElementById("currentPage").value = saved.page || 0;
-                document.getElementById("shelfSelect").value = saved.shelf || "Currently Reading";
-            }
-        });
-
-        function saveBook() {
-            const page = document.getElementById("currentPage").value;
-            const shelf = document.getElementById("shelfSelect").value;
-
-            const data = { page, shelf };
-
-            localStorage.setItem(BOOK_KEY, JSON.stringify(data));
-
-            alert("Saved!");
+        if (saved) {
+            document.getElementById("currentPage").value = saved.page || 0;
+            document.getElementById("shelfSelect").value = saved.shelf || "Currently Reading";
         }
-    </script>
+    });
+
+    function saveBook() {
+        const page = document.getElementById("currentPage").value;
+        const shelf = document.getElementById("shelfSelect").value;
+
+        const bookData = {
+            page,
+            shelf,
+            cover: "images/Pageboy.jpg",
+            link: "book-Pageboy.html", 
+            title: "Pageboy"
+        };
+
+        localStorage.setItem(BOOK_KEY, JSON.stringify(bookData));
+
+        alert("Saved to shelf!");
+    }
+</script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 

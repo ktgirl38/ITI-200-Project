@@ -195,7 +195,7 @@
                     const response = await request.json();
 
                     if(request.status===404) {
-                        stats.innerHTML = `<div class="card-body"><h5>You have not read anything yet. Visit your shelf to choose your next read!</h5></div>`;
+                        stats.innerHTML += `<div class="card-body"><h5>You have not read anything yet. Visit your shelf to choose your next read!</h5></div>`;
                         return false;
                     }
 

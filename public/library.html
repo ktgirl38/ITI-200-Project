@@ -42,7 +42,98 @@
     <div class="container my-4">
         <h2 class="text-center mb-4">Library</h2>
 
-        <div class="row g-4" id="shelf">
+        <div class="row g-4">
+
+            <!-- Addie LaRue -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=The%20Invisible%20Life%20of%20Addie%20Larue">
+                    <img src="images/AddieLarueCover.jpg" class="img-fluid shelf-book" alt="The Invisible Life of Addie Larue">
+                </a>
+            </div>
+
+            <!-- Pageboy -->
+            <div class="col-md-2 col-6">
+                <a href="book-Pageboy.html">
+                    <img src="images/Pageboy.jpg" class="img-fluid shelf-book" alt="Pageboy">
+                </a>
+            </div>
+
+            <!-- Carrie Soto Is Back -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Carrie%20Soto%20Is%20Back">
+                    <img src="images/Carrie-Soto-Is-Back.jpg" class="img-fluid shelf-book" alt="Carrie Soto Is Back">
+                </a>
+            </div>
+
+            <!-- Pachinko -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Pachinko">
+                    <img src="images/Pachinko.jpg" class="img-fluid shelf-book" alt="Pachinko">
+                </a>
+            </div>
+
+            <!-- Mistborn -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Mistborn:%20The%20Final%20Empire">
+                    <img src="images/Mistborn.jpg" class="img-fluid shelf-book" alt="Mistborn: The Final Empire">
+                </a>
+            </div>
+
+            <!-- Daisy Jones & the Six -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Daisy%20Jones%20%26%20the%20Six">
+                    <img src="images/Daisy-Jones-and-the-Six.jpg" class="img-fluid shelf-book" alt="Daisy Jones and the Six">
+                </a>
+            </div>
+
+            <!-- Midnight Library -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=The%20Midnight%20Library">
+                    <img src="images/The-Midnight-Library.jpg" class="img-fluid shelf-book" alt="The Midnight Library">
+                </a>
+            </div>
+
+            <!-- Song of Achilles -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=The%20Song%20of%20Achilles">
+                    <img src="images/The-Song-of-Achilles.jpg" class="img-fluid shelf-book" alt="The Song of Achilles">
+                </a>
+            </div>
+
+            <!-- Vinland Saga -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Vinland%20Saga%20Omnibus,%20Vol.%201">
+                    <img src="images/Vinland-Saga-volume-1.jpg" class="img-fluid shelf-book" alt="Vinland Saga Omnibus Vol 1">
+                </a>
+            </div>
+
+            <!-- Lessons in Chemistry -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Lessons%20in%20Chemistry">
+                    <img src="images/LessonsInChemistry.jpg" class="img-fluid shelf-book" alt="Lessons in Chemistry">
+                </a>
+            </div>
+
+            <!-- The Poppy War -->
+            <div class="col-md-2 col-6">
+                <a href="book-ThePoppyWar.html">
+                    <img src="images/PoppyWarCover.jpg" class="img-fluid shelf-book" alt="The Poppy War">
+                </a>
+            </div>
+
+            <!-- Tress of the Emerald Sea -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Tress%20of%20the%20Emerald%20Sea">
+                    <img src="images/TressOfTheEmeraldSea.jpg" class="img-fluid shelf-book" alt="Tress of the Emerald Sea">
+                </a>
+            </div>
+
+            <!-- Aesop's Fables -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Aesop%27s%20Fables">
+                    <img src="images/Aesops-Fables.jpg" class="img-fluid shelf-book" alt="Aesop's Fables">
+                </a>
+            </div>
 
         </div>
     </div>
@@ -66,50 +157,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="library.js"></script>
-    <script>
-        function createBook(title, cover){
-            if (!/\.(jpg|jpeg|png|gif)$/i.test(cover)) {
-            cover += ".jpg";
-            }
-            html=`<div class="col-md-2 col-6" id="${title}Shelf">
-                <a href="#" id=${title}Library>
-                    <img src="${cover}" class="img-fluid shelf-book" alt="${title}">
-                </a>
-            </div>`
-            return html;
-        }
-
-        async function loadBooks() {
-            const results=document.getElementById("shelf");
-
-                const response = await fetch("/api/getBooks", {
-                    headers: {
-                        'Accept':'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: 'GET',
-                })
-
-                if(response.status===404) {
-                    console.log("Book not found");
-                    results.innerHTML = `
-                    <div class= "container col-sm-12 col-md-10 center">
-                        <p>This title is not in our database. You can add the book from your shelf page.</p>
-                    </div>
-                    `;
-                    return false;
-                }
-
-                const books = await response.json()
-
-                for (let book of books){
-                    results.innerHTML += createBook(book.title, book.cover);
-                }
-            }
-
-            window.addEventListener("load", loadBooks);
-    </script>
 
 </body>
 </html>

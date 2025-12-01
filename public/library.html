@@ -67,12 +67,16 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function createBook(cover, title){
+        function createBook(title, cover){
+            if (!/\.(jpg|jpeg|png|gif)$/i.test(cover)) {
+            cover += ".jpg";
+            }
             html=`<div class="col-md-2 col-6" id="${title}Shelf">
                 <a href="book.html?book=${title}" id=${title}Library>
                     <img src="${cover}" class="img-fluid shelf-book" alt="${title}">
                 </a>
             </div>`
+            return html;
         }
 
         async function loadBooks() {
@@ -83,7 +87,7 @@
                         'Accept':'application/json',
                         'Content-Type': 'application/json'
                     },
-                    method: 'POST',
+                    method: 'GET',
                 })
 
                 if(response.status===404) {

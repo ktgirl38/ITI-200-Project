@@ -1,80 +1,80 @@
-const container = document.getElementById("bookContainer");
-const urlParams = new URLSearchParams(window.location.search);
-const title = urlParams.get("title");
-const author = urlParams.get("author");
 const username = localStorage.getItem("username");
-const response = await fetch(
-    `/api/books/details?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&username=${encodeURIComponent(username)}`
-);
-
-async function loadBook() {
-    const response = await fetch(`/api/books/details?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}`);
-    const book = await response.json();
-
-    container.innerHTML = `
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="${book.cover}" class="img-fluid">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h3>${book.title}</h3>
-                        <h5>${book.author}</h5>
-                        <hr>
-                        <label>Total Pages:</label>
-                        <input type="number" id="totalPages" class="form-control mb-2" value="${book.pageNum || ''}">
-                        
-                        <label>Current Page:</label>
-                        <input type="number" id="currentPage" class="form-control mb-2" value="0">
-
-                        <label>Shelf:</label>
-                        <select id="shelfSelect" class="form-control mb-2">
-                            <option value="Currently Reading">Currently Reading</option>
-                            <option value="Plan to Read">Plan to Read</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-
-                        <button id="saveBtn" class="btn btn-info mb-2">Save Progress</button>
-                        <a href="discussion.html?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}" class="btn btn-primary">Go to Discussion</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-
-    document.getElementById("saveBtn").addEventListener("click", saveProgress);
+if (!username) {
+    alert("Please log in to track your books.");
+    window.location.href = "login.html";
 }
 
-async function saveProgress() {
-    const totalPages = document.getElementById("totalPages").value;
-    const currentPage = document.getElementById("currentPage").value;
-    const shelf = document.getElementById("shelfSelect").value;
+// Get book title from URL
+const params = new URLSearchParams(window.location.search);
+const bookTitle = params.get("title");
 
-    if (parseInt(currentPage) > parseInt(totalPages)) {
-        alert("Current page cannot exceed total pages");
+const bookCover = document.getElementById("bookCover");
+const bookTitleElem = document.getElementById("bookTitle");
+const bookAuthorElem = document.getElementById("bookAuthor");
+const bookISBNElem = document.getElementById("bookISBN");
+const bookPublisherElem = document.getElementById("bookPublisher");
+const bookPagesElem = document.getElementById("bookPages");
+const currentPageInput = document.getElementById("currentPage");
+const shelfSelect = document.getElementById("shelfSelect");
+const saveBtn = document.getElementById("saveProgress");
+const discussionLink = document.getElementById("discussionLink");
+
+// Load book info from server
+async function loadBook() {
+    const response = await fetch(`/api/books/${encodeURIComponent(bookTitle)}`);
+    const book = await response.json();
+
+    bookCover.src = book.cover;
+    bookTitleElem.textContent = book.title;
+    bookAuthorElem.textContent = book.author;
+    bookISBNElem.textContent = book.ISBN || "N/A";
+    bookPublisherElem.textContent = book.publisher || "N/A";
+    bookPagesElem.textContent = book.pageNum || "Unknown";
+
+    // Set discussion link
+    discussionLink.href = `discussions/${book.title.replace(/\s/g, '')}.html`;
+
+    // Load user's current progress if exists
+    const progressRes = await fetch(`/api/readingstats/${encodeURIComponent(username)}`);
+    const stats = await progressRes.json();
+    const userBook = stats.find(b => b.book === book.title);
+
+    if (userBook) {
+        currentPageInput.value = userBook.currentpage || 0;
+        shelfSelect.value = userBook.readingstatus;
+    }
+}
+
+// Save or update progress
+saveBtn.addEventListener("click", async () => {
+    const currentPage = parseInt(currentPageInput.value) || 0;
+    const shelf = shelfSelect.value;
+    const totalPages = parseInt(bookPagesElem.textContent) || 0;
+
+    if (currentPage > totalPages) {
+        alert("Current page cannot exceed total pages.");
         return;
     }
 
     const progress = {
         username,
-        book: title,
-        author,
+        book: bookTitle,
         currentPage,
         totalPages,
         readingStatus: shelf
     };
 
-    await fetch("/api/home/editBookProgress", {
+    const res = await fetch("/api/home/editBookProgress", {
         method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(progress)
     });
 
-    alert("Progress saved!");
-}
+    if (res.ok) {
+        alert("Progress saved successfully!");
+    } else {
+        alert("Error saving progress.");
+    }
+});
 
 window.addEventListener("load", loadBook);

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BOOK TITLE HERE</title>
+    <title>Pageboy</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -39,17 +39,18 @@
 
             <!-- COVER IMAGE -->
             <div class="col-md-4">
-                <img src="images/BOOK-COVER-FILENAME.jpg" class="img-fluid border" alt="Book Cover">
+                <img src="images/Pageboy.jpg" class="img-fluid border" alt="Book Cover">
             </div>
 
             <!-- BOOK INFO -->
             <div class="col-md-8">
 
-                <h2><b>BOOK TITLE HERE</b></h2>
-                <p><b>Author:</b> AUTHOR HERE</p>
-                <p><b>ISBN:</b> ISBN HERE</p>
-                <p><b>Publisher:</b> PUBLISHER HERE</p>
-                <p><b>Total Pages:</b> PAGE COUNT HERE</p>
+                <h2><b>Pageboy</b></h2>
+
+                <p><b>Author:</b> Elliot Page</p>
+                <p><b>ISBN:</b> 9781250878359</p>
+                <p><b>Publisher:</b> Flatiron Books</p>
+                <p><b>Total Pages:</b> 400</p>
 
                 <hr>
 
@@ -91,18 +92,31 @@
 
     <!-- SIMPLE JS FOR LOCALSTORAGE -->
     <script>
+        const BOOK_KEY = "Pageboy";
+
+        // Load saved info when page opens
+        window.addEventListener("load", () => {
+            const saved = JSON.parse(localStorage.getItem(BOOK_KEY));
+
+            if (saved) {
+                document.getElementById("currentPage").value = saved.page || 0;
+                document.getElementById("shelfSelect").value = saved.shelf || "Currently Reading";
+            }
+        });
+
         function saveBook() {
-            const book = "BOOK TITLE HERE";   // unique key
             const page = document.getElementById("currentPage").value;
             const shelf = document.getElementById("shelfSelect").value;
 
             const data = { page, shelf };
 
-            localStorage.setItem(book, JSON.stringify(data));
+            localStorage.setItem(BOOK_KEY, JSON.stringify(data));
 
             alert("Saved!");
         }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

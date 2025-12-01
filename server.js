@@ -2,6 +2,7 @@ const express = require("express");
 const http=require("http");
 const Pool = require('pg').Pool
 const bodyParser = require("body-parser");
+require('dotenv').config();
 
 const app = express();
 
@@ -9,11 +10,7 @@ app.use(express.static('public'))
 app.use(bodyParser.json());
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'ProjectDatabase',
-    password: 'postgres',
-    port: 5432,
+  connectionString: process.env.CONN_STR,
 });
 
 app.post("/api/user/check", (req, res) => {

@@ -88,3 +88,7 @@ form {
     bottom:20;
     right:20;
 }
+
+.hidden {
+    display:none;
+}

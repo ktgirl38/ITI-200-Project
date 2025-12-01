@@ -175,9 +175,11 @@
             }
 
             async function updateYearStats(){
-                if(!(user === null)) {
+                const stats=document.getElementById("yearlyReadingStats");
+                
+                if((!(user === null))) {
 
-                    const stats=document.getElementById("yearlyReadingStats");
+                    
 
                     const curYear = new Date().getFullYear();
 

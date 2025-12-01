@@ -1,7 +1,7 @@
 CREATE TABLE Books (
     title VARCHAR(1000),
     author VARCHAR(500),
-    ISBN VARCHAR(12),
+    ISBN VARCHAR(120),
     cover VARCHAR(1000), --Store file path of cover image
     publishingDate DATE,
     publisher VARCHAR(500),
@@ -9,7 +9,7 @@ CREATE TABLE Books (
 
 );
 
-CREATE TABLE User (
+CREATE TABLE Users (
     username VARCHAR(100) PRIMARY KEY,
     pswd VARCHAR(100), --Password
     email VARCHAR(500)
@@ -73,4 +73,3 @@ INSERT INTO Users(username, pswd, email) VALUES ('example', 'examplepass', 'exam
 
 INSERT INTO ReadingStats(username, book, author, dateStarted, pageNum, currentPage, readingStatus, cover) VALUES ('example', 'Pageboy', 'Elliot Page', '2025-10-28', 400, 45, 'Currently Reading', '\images\Pageboy.jpg');
 INSERT INTO ReadingStats(username, book, author, dateStarted, dateCompleted, pageNum, readingStatus, cover) VALUES ('example', 'The Poppy War', 'R.F. Kuang', '2025-9-12', '2025-9-22', 492, 'Completed', '\images\PoppyWarCover.jpg');
-INSERT INTO ReadingStats(username, book, author, readingStatus, cover, dateStarted) VALUES ('kt', 'The Midnight Library', 'Matt Haig', 'Currently Reading', '\images\The-Midnight-Library.jpg', '2025-11-09');

@@ -107,26 +107,81 @@ app.get("/api/getBookInfo", (req, res) =>{
     })
 })
 
-app.post("/api/home/editBookProgress", (req, res) => {
-    console.log("Server accessed");
-    const progress = req.body;
-    
+app.get("/api/books", async (req, res) => {
+    const query = "SELECT title, author, cover, ISBN, publishingDate FROM Books";
+    try {
+        const books = await db.all(query);
+        res.json(books);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
-    const data = [progress.username, progress.book, progress.currentPage, progress.totalPages, progress.readingStatus];
-        
-    const sql = "UPDATE ReadingStats SET currentPage=$3, pageNum=$4, readingStatus=$5 WHERE username=$1 AND book=$2";
-    
-    
+app.get("/api/books/details", async (req, res) => {
+    const { title, author } = req.query;
+    const username = req.query.username; 
+
+    try {
+        // Get book info
+        const book = await db.get(
+            "SELECT * FROM Books WHERE title=? AND author=?", [title, author]
+        );
+
+        if (!book) return res.status(404).json({ error: "Book not found" });
+
+        // Optionally get user's progress if username is provided
+        if (username) {
+            const stats = await db.get(
+                "SELECT currentPage, pageNum, readingStatus FROM ReadingStats WHERE username=? AND book=? AND author=? ORDER BY dateStarted DESC LIMIT 1",
+                [username, title, author]
+            );
+
+            if (stats) {
+                book.currentPage = stats.currentPage;
+                book.pageNum = stats.pageNum;
+                book.readingStatus = stats.readingStatus;
+            }
+        }
+
+        res.json(book);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+app.post("/api/home/editBookProgress", (req, res) => {
+    const progress = req.body;
+
+    const data = [
+        progress.username,
+        progress.book,
+        progress.author,         // add author from frontend
+        progress.currentPage,
+        progress.totalPages,
+        progress.readingStatus
+    ];
+
+    const sql = `
+        INSERT INTO ReadingStats(username, book, author, dateStarted, currentPage, pageNum, readingStatus)
+        VALUES($1, $2, $3, NOW(), $4, $5, $6)
+        ON CONFLICT(username, book, dateStarted)
+        DO UPDATE SET currentPage=EXCLUDED.currentPage, pageNum=EXCLUDED.pageNum, readingStatus=EXCLUDED.readingStatus
+    `;
 
     pool.query(sql, data, (error, results) => {
         if(error) {
             throw error;
-        } 
+        }
         return res.status(200).json("Updated Successfully");
-    })
+    });
+});
 
-    
-    
+app.get("/api/books/all", (req, res) => {
+    pool.query("SELECT * FROM Books", (err, results) => {
+        if (err) throw err;
+        res.json(results.rows);
+    });
 });
 
 app.get("/api/home/getYearReads", (req, res) => {

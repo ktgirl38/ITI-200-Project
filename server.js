@@ -119,10 +119,10 @@ app.get("/api/books", async (req, res) => {
     }
 });
 
-app.get("/api/books/:title", async (req, res) => {
-    try {
-        const title = req.params.title;
+app.get("/api/books/*", async (req, res) => {
+    const title = decodeURIComponent(req.params[0]); 
 
+    try {
         const sql = "SELECT * FROM Books WHERE title=$1";
         const result = await pool.query(sql, [title]);
 
@@ -136,6 +136,7 @@ app.get("/api/books/:title", async (req, res) => {
         res.status(500).json({ error: "Server error fetching book" });
     }
 });
+
 
 
 

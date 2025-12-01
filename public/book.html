@@ -7,21 +7,52 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg blueBG" data-bs-theme="light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><i class="bi bi-book"></i> <b>Book Tracker</b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shelf.html">Shelf</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="library.html">Library</a></li>
+                    <li class="nav-item"><a class="nav-link" href="posts.html">Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Account</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- BOOK DETAILS SECTION -->
     <div class="container my-4">
         <div class="row">
+
+            <!-- COVER IMAGE -->
             <div class="col-md-4">
-                <img id="bookCover" src="" alt="Book Cover" class="img-fluid">
+                <img id="bookCover" src="" alt="Book Cover" class="img-fluid border">
             </div>
+
+            <!-- BOOK INFO -->
             <div class="col-md-8">
                 <h2 id="bookTitle"></h2>
+
                 <p><b>Author:</b> <span id="bookAuthor"></span></p>
                 <p><b>ISBN:</b> <span id="bookISBN"></span></p>
                 <p><b>Publisher:</b> <span id="bookPublisher"></span></p>
-                <p><b>Pages:</b> <span id="bookPages"></span></p>
+                <p><b>Total Pages:</b> <span id="bookPages"></span></p>
 
                 <hr>
 
+                <!-- ADD TO SHELF -->
                 <div class="mb-3">
                     <label for="shelfSelect" class="form-label"><b>Add to Shelf</b></label>
                     <select id="shelfSelect" class="form-select">
@@ -31,6 +62,46 @@
                     </select>
                 </div>
 
+                <!-- CURRENT PAGE INPUT -->
                 <div class="mb-3">
                     <label for="currentPage" class="form-label">Current Page</label>
-                    <input type="number" id="currentPage" class="form-control"
+                    <input type="number" id="currentPage" class="form-control" min="0">
+                </div>
+
+                <!-- SAVE BUTTON -->
+                <button id="saveProgress" class="btn btn-info">Save Progress</button>
+
+                <hr>
+
+                <!-- DISCUSSION LINK -->
+                <a id="discussionLink" class="btn btn-outline-primary" href="#">
+                    Go to Discussion
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="blueBG footer mt-4">
+        <div class="container">
+            <footer class="row">
+                <ul class="nav justify-content-center py-3">
+                    <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+                    <li class="nav-item"><a href="shelf.html" class="nav-link px-2 text-body-secondary">Shelf</a></li>
+                    <li class="nav-item"><a href="library.html" class="nav-link px-2 text-body-secondary">Library</a></li>
+                    <li class="nav-item"><a href="posts.html" class="nav-link px-2 text-body-secondary">Posts</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link px-2 text-body-secondary">Account</a></li>
+                </ul>
+                <hr>
+                <p class="text-center text-body-secondary">© 2025 Project Group 7</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="javascript/books.js"></script>
+
+</body>
+</html>

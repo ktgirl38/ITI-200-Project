@@ -143,33 +143,6 @@ app.get("/api/book", async (req, res) => {
 });
 
 
-app.post("/api/home/editBookProgress", (req, res) => {
-    const progress = req.body;
-
-    const data = [
-        progress.username,
-        progress.book,
-        progress.author,         // add author from frontend
-        progress.currentPage,
-        progress.totalPages,
-        progress.readingStatus
-    ];
-
-    const sql = `
-        INSERT INTO ReadingStats(username, book, author, dateStarted, currentPage, pageNum, readingStatus)
-        VALUES($1, $2, $3, NOW(), $4, $5, $6)
-        ON CONFLICT(username, book, dateStarted)
-        DO UPDATE SET currentPage=EXCLUDED.currentPage, pageNum=EXCLUDED.pageNum, readingStatus=EXCLUDED.readingStatus
-    `;
-
-    pool.query(sql, data, (error, results) => {
-        if(error) {
-            throw error;
-        }
-        return res.status(200).json("Updated Successfully");
-    });
-});
-
 app.get("/api/books/all", (req, res) => {
     pool.query("SELECT * FROM Books", (err, results) => {
         if (err) throw err;

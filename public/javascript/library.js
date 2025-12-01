@@ -1,14 +1,20 @@
-const libraryDiv = document.getElementById("libraryBooks");
+const username = localStorage.getItem("username"); // get logged-in user
 
 async function loadLibrary() {
-    const response = await fetch("/api/books"); 
+    const container = document.getElementById("libraryBooks");
+
+    // Fetch all books from the server
+    const response = await fetch("/api/books");
     const books = await response.json();
 
-    for (let book of books) {
-        const card = document.createElement("div");
-        card.className = "col-md-3";
+    container.innerHTML = ""; // clear container
 
-        card.innerHTML = `
+    books.forEach(book => {
+        const col = document.createElement("div");
+        col.className = "col-md-3";
+
+        // Each book links to its individual page
+        col.innerHTML = `
             <div class="card h-100">
                 <a href="book.html?title=${encodeURIComponent(book.title)}&author=${encodeURIComponent(book.author)}">
                     <img src="${book.cover}" class="card-img-top" alt="${book.title}">
@@ -19,9 +25,9 @@ async function loadLibrary() {
                 </div>
             </div>
         `;
-
-        libraryDiv.appendChild(card);
-    }
+        container.appendChild(col);
+    });
 }
 
+// Run on page load
 window.addEventListener("load", loadLibrary);

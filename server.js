@@ -119,6 +119,25 @@ app.get("/api/books", async (req, res) => {
     }
 });
 
+app.get("/api/books/:title", async (req, res) => {
+    try {
+        const title = req.params.title;
+
+        const sql = "SELECT * FROM Books WHERE title=$1";
+        const result = await pool.query(sql, [title]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Book not found" });
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server error fetching book" });
+    }
+});
+
+
 
 app.get("/api/books/details", async (req, res) => {
     const { title, author } = req.query;

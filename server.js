@@ -119,7 +119,7 @@ app.get("/api/books", async (req, res) => {
     }
 });
 
-// ✔ NEW: FETCH A SINGLE BOOK BY TITLE + AUTHOR
+
 app.get("/api/book", async (req, res) => {
     const { title, author } = req.query;
 
@@ -170,7 +170,7 @@ app.get("/api/home/getYearReads", (req, res) => {
 
 });
 
-app.post("/api/home/editBookProgress", (req, res) => {
+app.post("/api/shelf/editBookProgress", (req, res) => {
     console.log("Server accessed");
     const progress = req.body;
 
@@ -202,6 +202,28 @@ app.post("/api/home/editBookProgress", (req, res) => {
         }
         return res.status(200).json("Saved Successfully");
     });
+});
+
+app.post("/api/home/editBookProgress", (req, res) => {
+    console.log("Server accessed");
+    const progress = req.body;
+    
+
+    const data = [progress.username, progress.book, progress.currentPage, progress.totalPages, progress.readingStatus];
+        
+    const sql = "UPDATE ReadingStats SET currentPage=$3, pageNum=$4, readingStatus=$5 WHERE username=$1 AND book=$2";
+    
+    
+
+    pool.query(sql, data, (error, results) => {
+        if(error) {
+            throw error;
+        } 
+        return res.status(200).json("Updated Successfully");
+    })
+
+    
+    
 });
 
 

@@ -122,8 +122,20 @@
         const allKeys = Object.keys(localStorage);
 
         allKeys.forEach(key => {
-            const item = JSON.parse(localStorage.getItem(key));
+            let item;
+
+            // Safely parse only JSON-like items
+            try {
+                item = JSON.parse(localStorage.getItem(key));
+            } catch (e) {
+                // Not JSON (e.g., username string) → skip
+                return;
+            }
+
             if (!item || !item.shelf) return;
+
+            const container = containers[item.shelf];
+            if (!container) return; // unknown shelf string, ignore
 
             const img = document.createElement("img");
             img.src = item.cover;
@@ -140,12 +152,13 @@
             wrapper.className = "col-md-2 col-6";
             wrapper.appendChild(img);
 
-            containers[item.shelf].appendChild(wrapper);
+            container.appendChild(wrapper);
         });
     }
 
     window.addEventListener("load", loadShelves);
 </script>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 

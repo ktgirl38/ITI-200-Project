@@ -123,7 +123,7 @@
                 cover: BOOK_COVER
             };
 
-            const response = await fetch("/api/home/editBookProgress", {
+            const response = await fetch("/api/shelf/editBookProgress", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)

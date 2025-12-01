@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Library - Book Tracker</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg blueBG" data-bs-theme="light">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html"><i class="bi bi-book"></i> <b>Book Tracker</b></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                    aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
@@ -25,18 +29,112 @@
                     <li class="nav-item"><a class="nav-link" href="posts.html">Posts</a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html">Account</a></li>
                 </ul>
-                <form class="d-flex" role="search" style="margin-bottom: 0px;" id="navbarSearch">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="navSearch"/>
+
+                <form class="d-flex" role="search" style="margin-bottom:0;" id="navbarSearch">
+                    <input class="form-control me-2" type="search" id="navSearch" placeholder="Search" aria-label="Search">
                     <button class="btn" type="submit"><i class="bi bi-search"></i></button>
                 </form>
             </div>
         </div>
     </nav>
 
+    <!-- LIBRARY GRID -->
     <div class="container my-4">
         <h2 class="text-center mb-4">Library</h2>
-        <div class="row g-3" id="libraryBooks">
-            <!-- Books will be dynamically added here -->
+
+        <div class="row g-4">
+
+            <!-- Addie LaRue -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=The%20Invisible%20Life%20of%20Addie%20Larue">
+                    <img src="images/AddieLarueCover.jpg" class="img-fluid shelf-book" alt="The Invisible Life of Addie Larue">
+                </a>
+            </div>
+
+            <!-- Pageboy -->
+            <div class="col-md-2 col-6">
+                <a href="book-Pageboy.html">
+                    <img src="images/Pageboy.jpg" class="img-fluid shelf-book" alt="Pageboy">
+                </a>
+            </div>
+
+            <!-- Carrie Soto Is Back -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Carrie%20Soto%20Is%20Back">
+                    <img src="images/Carrie-Soto-Is-Back.jpg" class="img-fluid shelf-book" alt="Carrie Soto Is Back">
+                </a>
+            </div>
+
+            <!-- Pachinko -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Pachinko">
+                    <img src="images/Pachinko.jpg" class="img-fluid shelf-book" alt="Pachinko">
+                </a>
+            </div>
+
+            <!-- Mistborn -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Mistborn:%20The%20Final%20Empire">
+                    <img src="images/Mistborn.jpg" class="img-fluid shelf-book" alt="Mistborn: The Final Empire">
+                </a>
+            </div>
+
+            <!-- Daisy Jones & the Six -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Daisy%20Jones%20%26%20the%20Six">
+                    <img src="images/Daisy-Jones-and-the-Six.jpg" class="img-fluid shelf-book" alt="Daisy Jones and the Six">
+                </a>
+            </div>
+
+            <!-- Midnight Library -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=The%20Midnight%20Library">
+                    <img src="images/The-Midnight-Library.jpg" class="img-fluid shelf-book" alt="The Midnight Library">
+                </a>
+            </div>
+
+            <!-- Song of Achilles -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=The%20Song%20of%20Achilles">
+                    <img src="images/The-Song-of-Achilles.jpg" class="img-fluid shelf-book" alt="The Song of Achilles">
+                </a>
+            </div>
+
+            <!-- Vinland Saga -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Vinland%20Saga%20Omnibus,%20Vol.%201">
+                    <img src="images/Vinland-Saga-volume-1.jpg" class="img-fluid shelf-book" alt="Vinland Saga Omnibus Vol 1">
+                </a>
+            </div>
+
+            <!-- Lessons in Chemistry -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Lessons%20in%20Chemistry">
+                    <img src="images/LessonsInChemistry.jpg" class="img-fluid shelf-book" alt="Lessons in Chemistry">
+                </a>
+            </div>
+
+            <!-- The Poppy War -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=The%20Poppy%20War">
+                    <img src="images/PoppyWarCover.jpg" class="img-fluid shelf-book" alt="The Poppy War">
+                </a>
+            </div>
+
+            <!-- Tress of the Emerald Sea -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Tress%20of%20the%20Emerald%20Sea">
+                    <img src="images/TressOfTheEmeraldSea.jpg" class="img-fluid shelf-book" alt="Tress of the Emerald Sea">
+                </a>
+            </div>
+
+            <!-- Aesop's Fables -->
+            <div class="col-md-2 col-6">
+                <a href="book.html?book=Aesop%27s%20Fables">
+                    <img src="images/Aesops-Fables.jpg" class="img-fluid shelf-book" alt="Aesop's Fables">
+                </a>
+            </div>
+
         </div>
     </div>
 
@@ -57,7 +155,8 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="javascript/library.js"></script>
+
 </body>
 </html>

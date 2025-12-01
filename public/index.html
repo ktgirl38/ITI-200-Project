@@ -23,6 +23,7 @@
                         <li class="nav-item"><a class="nav-link" href="shelf.html">Shelf</a></li>
                         <li class="nav-item"><a class="nav-link" href="posts.html">Posts</a></li>
                         <li class="nav-item"><a class="nav-link" href="login.html">Account</a></li>
+                        <li class="nav-item"><a class="nav-link" href="library.html">Library</a></li>
                     </ul>
                     <form class="d-flex" role="search" style="margin-bottom: 0px;" id="navbarSearch">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="navSearch"/>
@@ -93,6 +94,8 @@
                             <li class="nav-item"><a href="shelf.html" class="nav-link px-2 text-body-secondary">Shelf</a></li>
                             <li class="nav-item"><a href="posts.html" class="nav-link px-2 text-body-secondary">Posts</a></li>
                             <li class="nav-item"><a href="account.html" class="nav-link px-2 text-body-secondary">Account</a></li>
+                            <li class="nav-item"><a href="library.html" class="nav-link px-2 text-body-secondary">Library</a></li>
+
                         </ul>
                         <hr>
                         <p class="text-center text-body-secondary">© 2025 Project Group 7</p>
@@ -141,11 +144,11 @@
                                         
                                         Reading Status <br>
                                         <label for="status${title}TBR">To Be Read</label>
-                                        <input type="radio" class="form-check-inline mb-2" id="status${title}TBR" name="Status" value="To Be Read">
+                                        <input type="radio" class="form-check-inline mb-2" id="status${title}TBR" name="Status" value="TBR">
                                         <label for="status${title}CR">Currently Reading</label>
                                         <input type="radio" class="form-check-inline mb-2" id="status${title}CR" name="Status" checked value="Currently Reading">
                                         <label for="status${title}Fin">Finished</label>
-                                        <input type="radio" class="form-check-inline mb-2" id="status${title}Fin" name="Status" value="Finished">
+                                        <input type="radio" class="form-check-inline mb-2" id="status${title}Fin" name="Status" value="Completed">
                                         <br>
                                         <input type="submit" class="btn btn-info mt-2" id="${title}UpdateSubmit">
                                     </form>
@@ -194,7 +197,7 @@
                     const response = await request.json();
 
                     if(request.status===404) {
-                        stats.innerHTML = `<div class="card-body"><h5>You have not read anything yet. Visit your shelf to choose your next read!</h5></div>`;
+                        stats.innerHTML += `<div class="card-body"><h5>You have not read anything yet. Visit your shelf to choose your next read!</h5></div>`;
                         return false;
                     }
 

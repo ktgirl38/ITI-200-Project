@@ -173,24 +173,37 @@ app.get("/api/home/getYearReads", (req, res) => {
 app.post("/api/home/editBookProgress", (req, res) => {
     console.log("Server accessed");
     const progress = req.body;
-    
 
-    const data = [progress.username, progress.book, progress.currentPage, progress.totalPages, progress.readingStatus];
-        
-    const sql = "UPDATE ReadingStats SET currentPage=$3, pageNum=$4, readingStatus=$5 WHERE username=$1 AND book=$2";
-    
-    
+    const data = [
+        progress.username,
+        progress.book,
+        progress.author,
+        progress.currentPage,
+        progress.totalPages,
+        progress.readingStatus,
+        progress.cover
+    ];
+
+    const sql = `
+        INSERT INTO ReadingStats (username, book, author, dateStarted, currentPage, pageNum, readingStatus, cover)
+        VALUES ($1, $2, $3, NOW(), $4, $5, $6, $7)
+        ON CONFLICT (username, book, dateStarted)
+        DO UPDATE SET
+            currentPage = EXCLUDED.currentPage,
+            pageNum = EXCLUDED.pageNum,
+            readingStatus = EXCLUDED.readingStatus,
+            cover = EXCLUDED.cover;
+    `;
 
     pool.query(sql, data, (error, results) => {
-        if(error) {
-            throw error;
-        } 
-        return res.status(200).json("Updated Successfully");
-    })
-
-    
-    
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ error: "Database error" });
+        }
+        return res.status(200).json("Saved Successfully");
+    });
 });
+
 
 app.get("/api/home/getYearReads", (req, res) => {
     console.log("Server Accessed");

@@ -50,7 +50,7 @@ CREATE TABLE postComments (
 );
 
 INSERT INTO Books (title, author, ISBN, cover, publishingDate, publisher) VALUES ('The Invisible Life of Addie Larue', 'V.E. Schwab', '9780765387561', 'images\AddieLarueCover.jpg', '2020-10-06', 'Tor Books');
-INSERT INTO Books (title, author, ISBN, cover, publishingDate, publisher) VALUES ('Pageboy', 'Elliot Page', '9781250878359', '\images\Pageboy.jpg', '2023-06-06', 'Flat');
+INSERT INTO Books (title, author, ISBN, cover, publishingDate, publisher) VALUES ('Pageboy', 'Elliot Page', '9781250878359', '/images/Pageboy.jpg', '2023-06-06', 'Flat');
 INSERT INTO Books (title, author, ISBN, cover, publishingDate, publisher) VALUES ('Carrie Soto Is Back', 'Taylor Jenkins Reid', '9780593158685', '\images\Carrie-Soto-Is-Back.jpg', '2022-08-30', 'Ballantine Books');
 INSERT INTO Books (title, author, ISBN, cover, publishingDate, publisher) VALUES ('Pachinko', 'Min Jin Lee', '9781455563920', '\images\Pachinko.jpg', '2017-11-14', 'Grand Central Publishing');
 INSERT INTO Books (title, author, ISBN, cover, publishingDate, publisher) VALUES ('Mistborn: The Final Empire', 'Brandon Sanderson', '9781250868282', '\images\Mistborn.jpg', '2006-07-17', 'Tor Books');

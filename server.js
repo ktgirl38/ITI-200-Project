@@ -138,41 +138,6 @@ app.get("/api/books/*", async (req, res) => {
 });
 
 
-
-
-app.get("/api/books/details", async (req, res) => {
-    const { title, author } = req.query;
-    const username = req.query.username; 
-
-    try {
-        // Get book info
-        const book = await db.get(
-            "SELECT * FROM Books WHERE title=? AND author=?", [title, author]
-        );
-
-        if (!book) return res.status(404).json({ error: "Book not found" });
-
-        // Optionally get user's progress if username is provided
-        if (username) {
-            const stats = await db.get(
-                "SELECT currentPage, pageNum, readingStatus FROM ReadingStats WHERE username=? AND book=? AND author=? ORDER BY dateStarted DESC LIMIT 1",
-                [username, title, author]
-            );
-
-            if (stats) {
-                book.currentPage = stats.currentPage;
-                book.pageNum = stats.pageNum;
-                book.readingStatus = stats.readingStatus;
-            }
-        }
-
-        res.json(book);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
-
 app.post("/api/home/editBookProgress", (req, res) => {
     const progress = req.body;
 

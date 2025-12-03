@@ -157,7 +157,7 @@ app.get("/api/home/getYearReads", (req, res) => {
     const endDate = `${req.query.year}-12-31`;
 
     const data = [req.query.username, startDate, endDate];
-    const sql= `SELECT * FROM ReadingStats WHERE username=$1 AND dateCompleted BETWEEN $2 AND $3`;
+    const sql= `SELECT * FROM ReadingStats WHERE username=$1 AND dateStarted BETWEEN $2 AND $3 AND readingStatus='Completed'`;
     pool.query(sql, data, (error, results) => {
         if(error) {throw error}
         if(results.rows.length===0){
@@ -226,26 +226,6 @@ app.post("/api/home/editBookProgress", (req, res) => {
     
 });
 
-
-app.get("/api/home/getYearReads", (req, res) => {
-    console.log("Server Accessed");
-
-    const startDate = `${req.query.year}-01-01`;
-    const endDate = `${req.query.year}-12-31`;
-
-    const data = [req.query.username, startDate, endDate];
-    const sql= `SELECT * FROM ReadingStats WHERE username=$1 AND dateCompleted BETWEEN $2 AND $3`;
-    pool.query(sql, data, (error, results) => {
-        if(error) {throw error}
-        if(results.rows.length===0){
-            console.log("No books found");
-            return res.status(404).json({error: "No books found"});
-        }
-        console.log(results.rows);
-        return res.status(200).json(results.rows)
-    })
-
-});
 
 app.get("/api/discussions", async (req, res) => {
   try {
